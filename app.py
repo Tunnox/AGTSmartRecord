@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with your secret key
 
 # Configure your PostgreSQL database connection here
-connection = psycopg2.connect(dbname='AGT', user='postgres', password='postk116chuk95', host='localhost', port='5432')
+connection = psycopg2.connect(dbname='AGT', user='postgres', password='pgsqtk116chuk95', host='chukspace.ctiuisa62ks5.eu-north-1.rds.amazonaws.com', port='5432')
 
 @app.route('/')
 def index():
@@ -18,21 +18,21 @@ def search():
     
     # SQL query to search for data in DATA_RECORDS table
     sql_query = f"""
-        SELECT * FROM public."DATA_RECORDS" 
-        WHERE "TITLE" ILIKE %s OR
-           "FIRST_NAME" ILIKE %s 
-           OR "LAST_NAME" ILIKE %s 
-           OR "AGE"::TEXT ILIKE %s 
-           OR "GENDER" ILIKE %s
-           OR "DATE_OF_BIRTH"::TEXT ILIKE %s
-           OR "ADDRESS" ILIKE %s
-           OR "EMAIL" ILIKE %s
-           OR "MOBILE_NUMBER"::TEXT ILIKE %s 
-           OR "STATUS" ILIKE %s  
-           OR "DEPARTMENT" ILIKE %s
-           OR "RELATIONSHIP_STATUS" ILIKE %s
-           OR "EMPLOYEMENT_STATUS" ILIKE %s
-           OR "CONSENT" ILIKE %s
+        SELECT * FROM "public"."data_records" 
+        WHERE "title" ILIKE %s OR
+           "first_name" ILIKE %s 
+           OR "last_name" ILIKE %s 
+           OR "age"::TEXT ILIKE %s 
+           OR "gender" ILIKE %s
+           OR "date_of_birth"::TEXT ILIKE %s
+           OR "address" ILIKE %s
+           OR "email" ILIKE %s
+           OR "mobile_number"::TEXT ILIKE %s 
+           OR "status" ILIKE %s  
+           OR "department" ILIKE %s
+           OR "relationship_status" ILIKE %s
+           OR "employement_status" ILIKE %s
+           OR "consent" ILIKE %s
     """
     
     # Execute the query with wildcard search
@@ -67,7 +67,7 @@ def insert():
         cursor = connection.cursor()
         
         cursor.execute("""
-            INSERT INTO public."DATA_RECORDS" ("TITLE", "FIRST_NAME", "LAST_NAME", "AGE", "GENDER", "DATE_OF_BIRTH", "ADDRESS", "EMAIL", "MOBILE_NUMBER", "STATUS", "DEPARTMENT", "RELATIONSHIP_STATUS", "EMPLOYEMENT_STATUS", "CONSENT")
+            INSERT INTO "public"."data_records" ("title", "first_name", "last_name", "age", "gender", "date_of_birth", "address", "email", "mobile_number", "status", "department", "relationship_status", "employement_status", "consent")
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """, (title, first_name, last_name, age, gender,date_of_birth, address, email, mobile_number, status,department, relationship_status, employment_status, consent))
         connection.commit()  # Don't forget to commit the transaction!
@@ -87,7 +87,7 @@ def insert_attendance():
         cursor = connection.cursor()
         
         cursor.execute("""
-            INSERT INTO public."ATTENDANCE_MANAGER"("First_Name", "Last_Name", "Age", "Date")
+            INSERT INTO "public"."attendance_manager" ("first_name", "last_name", "age", "date")
             VALUES (%s, %s, %s, %s);
         """, (first_name, last_name, age, date))
         connection.commit()  # Don't forget to commit the transaction!
