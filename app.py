@@ -81,15 +81,14 @@ def insert_attendance():
     if request.method == 'POST':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        age = request.form['age']
         date = request.form['date']
 
         cursor = connection.cursor()
         
         cursor.execute("""
-            INSERT INTO "public"."attendance_manager" ("first_name", "last_name", "age", "date")
-            VALUES (%s, %s, %s, %s);
-        """, (first_name, last_name, age, date))
+            INSERT INTO "public"."attendance_manager" ("first_name", "last_name", "date")
+            VALUES (%s, %s, %s);
+        """, (first_name, last_name, date))
         connection.commit()  # Don't forget to commit the transaction!
         cursor.close()
     
